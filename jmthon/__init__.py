@@ -40,7 +40,7 @@ def close_connection(*_):
 
 signal.signal(signal.SIGTERM, close_connection)
 
-if Config.UPSTREAM_REPO == "jmthonbot":
+if Config.UPSTREAM_REPO == "jmthonar":
     UPSTREAM_REPO_URL = "https://github.com/jmthonar/jmthon"
 else:
     UPSTREAM_REPO_URL = Config.UPSTREAM_REPO
