@@ -243,7 +243,7 @@ async def verifyLoggerGroup():
             )
     else:
         descript = "⪼ هذه هي مجموعه الحفظ الخاصه بك لا تحذفها ابدا  𓆰."
-        photobt = await jmthon.upload_file(file="jmthon/razan/Jmthonp.jpg")
+        photobt = await jmthon.upload_file(file="razan/razan/Jmthonp.jpg")
         _, groupid = await create_supergroup(
             "كروب بوت جمثون", jmthon, Config.TG_BOT_USERNAME, descript, photobt
         )
@@ -274,7 +274,7 @@ async def verifyLoggerGroup():
             LOGS.error("حدث خطأ اثناء التعرف على فار PM_LOGGER_GROUP_ID.\n" + str(e))
     else:
         descript = "❃ لا تحذف او تغادر المجموعه وظيفتها حفظ رسائل التي تأتي على الخاص"
-        photobt = await jmthon.upload_file(file="jmthon/razan/Jmthonp.jpg")
+        photobt = await jmthon.upload_file(file="razan/razan/Jmthonp.jpg")
         _, groupid = await create_supergroup(
             "مجموعة التخزين", jmthon, Config.TG_BOT_USERNAME, descript, photobt
         )
