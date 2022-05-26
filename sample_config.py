@@ -30,7 +30,7 @@ class Config(object):
     TG_BOT_USERNAME = None
     # get this value from http://www.timezoneconverter.com/cgi-bin/findzone.tzc
     TZ = os.environ.get("TZ", "Asia/Baghdad")
-    # set this with required cat repo link
+    # set this with required repo link
     UPSTREAM_REPO = os.environ.get(
         "UPSTREAM_REPO", "https://github.com/jmthonar/jmthon"
     )
@@ -56,6 +56,7 @@ class Config(object):
     ADD_CMD = os.environ.get("ADD_CMD", None)
     SLEEP_CMD = os.environ.get("SLEEP_CMD", None)
     PRV_CMD = os.environ.get("PRV_CMD", None)
+    TKRAR = os.environ.get("TKRAR", None)
     GROUP_CMD = os.environ.get("GROUP_CMD", None)
     ALIVE_CMD = os.environ.get("ALIVE_CMD", None)
     CLONE_CMD = os.environ.get("CLONE_CMD", None)
