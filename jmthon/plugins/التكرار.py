@@ -7,13 +7,14 @@ from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 from telethon.utils import get_display_name
 
 from jmthon import jmthon
-
+from ..Config import Config
 from ..core.managers import edit_delete, edit_or_reply
 from ..helpers.tools import media_type
 from ..helpers.utils import _jmthonutils
 from ..sql_helper.globals import addgvar, delgvar, gvarstatus
 from . import BOTLOG, BOTLOG_CHATID
 
+TKRAR = Config.TKRAR or "مكرر"
 
 async def spam_function(event, RR7PP, jmthon, sleeptimem, sleeptimet, DelaySpam=False):
 
@@ -130,7 +131,7 @@ async def spammer(event):
     await spam_function(event, RR7PP, jmthon, sleeptimem, sleeptimet)
 
 
-@jmthon.ar_cmd(pattern="مكرر (.*)")
+@jmthon.ar_cmd(pattern=f"{TKRAR} (.*)")
 async def spammer(event):
     reply = await event.get_reply_message()
     input_str = "".join(event.text.split(maxsplit=1)[1:]).split(" ", 2)
