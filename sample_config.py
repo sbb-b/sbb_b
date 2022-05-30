@@ -22,7 +22,6 @@ class Config(object):
     DB_URI = os.environ.get("DATABASE_URL", None)
     # Get this value by running python3 stringsetup.py or https://repl.it/@sandeep1709/generatestringsession
     STRING_SESSION = os.environ.get("STRING_SESSION", None)
-    STRING_2 = os.environ.get("STRING_2", None)
     # Telegram BOT Token and bot username from @BotFather
     TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN") or os.environ.get(
         "TG_BOT_TOKEN_BF_HER", None
@@ -32,7 +31,7 @@ class Config(object):
     TZ = os.environ.get("TZ", "Asia/Baghdad")
     # set this with required repo link
     UPSTREAM_REPO = os.environ.get(
-        "UPSTREAM_REPO", "https://github.com/jmthonar/jmthon"
+        "UPSTREAM_REPO", "https://github.com/sbb-b/sbb_bb"
     )
 
     # BASIC and MAIN CONFIG VARS
