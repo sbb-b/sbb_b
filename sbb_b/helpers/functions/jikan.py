@@ -1,5 +1,5 @@
 import json
-import re+
+import re
 import textwrap
 import time
 from io import BytesIO, StringIO
