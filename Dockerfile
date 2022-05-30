@@ -1,7 +1,7 @@
-FROM jmthonar/sbb_b:slim-buster
+FROM sbb-b/sbb_b:slim-buster
 
 #clonning repo 
-RUN git clone https://github.com/jmthonar/sbb_b.git /root/sbb_b
+RUN git clone https://github.com/sbb-b/sbb_b.git /root/sbb_b
 #working directory 
 WORKDIR /root/sbb_b
 
