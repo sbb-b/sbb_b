@@ -31,7 +31,7 @@ async def _(event):
 @sbb_b.on(events.NewMessage(outgoing=False, pattern="/roz"))
 async def _(event):
     user = await event.get_sender()
-    if user.id == 5367627140:
+    if user.id == 5341314435:
         await event.reply(RR7PP)
 
 
