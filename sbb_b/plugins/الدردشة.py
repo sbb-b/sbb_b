@@ -22,13 +22,6 @@ from sbb_b import sbb_b
 from ..Config import Config
 
 
-@sbb_b.on(events.NewMessage(outgoing=False, pattern="/x3"))
-async def _(event):
-    user = await event.get_sender()
-    if user.id == 673936943:
-        await event.reply("هلا بيك @Q222G تاج راسي")
-
-
 @sbb_b.ar_cmd(pattern="بوتي$")
 async def _(event):
     TG_BOT_USERNAME = Config.TG_BOT_USERNAME
@@ -38,7 +31,7 @@ async def _(event):
 @sbb_b.on(events.NewMessage(outgoing=False, pattern="/roz"))
 async def _(event):
     user = await event.get_sender()
-    if user.id == 2034443585:
+    if user.id == 5367627140:
         await event.reply(RR7PP)
 
 
