@@ -201,7 +201,7 @@ async def _(event):
     await event.edit("يلاا احـركه حـرك بسـرعه 🔥🔥🔥")
 
 
-@sbb_b.ar_cmdpattern="شحن$")
+@sbb_b.ar_cmd(pattern="شحن$")
 async def _(event):
     event = await edit_or_reply(event, "charging")
     txt = "`Tesla Wireless Charging (beta) Started...\
