@@ -3,6 +3,7 @@ from collections import deque
 
 from . import edit_or_reply, sbb_b
 
+plugin_category = "utils"
 
 @sbb_b.ar_cmd(pattern="غبي$")
 async def _(event):
@@ -142,14 +143,7 @@ async def _(event):
         await event.edit(animation_chars[i % 10])
 
 
-@sbb_b.ar_cmd(
-    pattern="مربعات$",
-    command=("مربعات", plugin_category),
-    info={
-        "header": "Fun animation try yourself to see.",
-        "usage": "{tr}hypno",
-    },
-)
+@sbb_b.ar_cmd(pattern="مربعات$")
 async def _(event):
     "animation command"
     animation_interval = 0.3
@@ -177,14 +171,7 @@ async def _(event):
         await event.edit(animation_chars[i % 15])
 
 
-@sbb_b.ar_cmd(
-    pattern="حلويات$",
-    command=("حلويات", plugin_category),
-    info={
-        "header": "Fun animation try yourself to see",
-        "usage": "{tr}candy",
-    },
-)
+@sbb_b.ar_cmd(pattern="حلويات$")
 async def _(event):
     "animation command"
     event = await edit_or_reply(event, "candy")
@@ -195,14 +182,7 @@ async def _(event):
         deq.rotate(1)
 
 
-@sbb_b.ar_cmd(
-    pattern="نار$",
-    command=("نار", plugin_category),
-    info={
-        "header": "Fun animation try yourself to see.",
-        "usage": "{tr}gangasta",
-    },
-)
+@sbb_b.ar_cmd(pattern="نار$")
 async def _(event):
     "animation command"
     event = await edit_or_reply(event, "احـراق")
@@ -221,14 +201,7 @@ async def _(event):
     await event.edit("يلاا احـركه حـرك بسـرعه 🔥🔥🔥")
 
 
-@sbb_b.ar_cmd(
-    pattern="شحن$",
-    command=("شحن", plugin_category),
-    info={
-        "header": "Phone charging animation.",
-        "usage": "{tr}charging",
-    },
-)
+@sbb_b.ar_cmdpattern="شحن$")
 async def _(event):
     event = await edit_or_reply(event, "charging")
     txt = "`Tesla Wireless Charging (beta) Started...\
