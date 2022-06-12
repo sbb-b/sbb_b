@@ -3,7 +3,6 @@ from collections import deque
 
 from . import edit_or_reply, sbb_b
 
-plugin_category = "utils"
 
 @sbb_b.ar_cmd(pattern="غبي$")
 async def _(event):
@@ -56,16 +55,8 @@ async def _(event):
     await asyncio.sleep(2)
 
 
-@sbb_b.ar_cmd(
-    pattern="قتل$",
-    command=("قتل", plugin_category),
-    info={
-        "header": "Fun animation try yourself to know more",
-        "usage": "{tr}kill",
-    },
-)
+@sbb_b.ar_cmd(pattern="قتل$")
 async def _(event):
-    "animation command"
     animation_interval = 0.7
     animation_ttl = range(12)
     event = await edit_or_reply(event, "ready to die dude.....")
@@ -88,16 +79,8 @@ async def _(event):
         await event.edit(animation_chars[i % 12])
 
 
-@sbb_b.ar_cmd(
-    pattern="شنو$",
-    command=("شنو", plugin_category),
-    info={
-        "header": "Fun animation try yourself to know more",
-        "usage": "{tr}شنو",
-    },
-)
+@sbb_b.ar_cmd(pattern="شنو$")
 async def _(event):
-    "animation command"
     animation_interval = 0.8
     animation_ttl = range(5)
     event = await edit_or_reply(event, "wtf")
@@ -113,16 +96,8 @@ async def _(event):
         await event.edit(animation_chars[i % 5], link_preview=True)
 
 
-@sbb_b.ar_cmd(
-    pattern="طوبة$",
-    command=("طوبة", plugin_category),
-    info={
-        "الامر": "امر تسليه جربه بنفسك",
-        "الاستخدام": "{tr}طوبة",
-    },
-)
+@sbb_b.ar_cmd(pattern="طوبة$")
 async def _(event):
-    "animation command"
     animation_interval = 0.3
     animation_ttl = range(30)
     animation_chars = [
@@ -145,7 +120,6 @@ async def _(event):
 
 @sbb_b.ar_cmd(pattern="مربعات$")
 async def _(event):
-    "animation command"
     animation_interval = 0.3
     animation_ttl = range(15)
     event = await edit_or_reply(event, "مـربـعات....")
@@ -173,7 +147,6 @@ async def _(event):
 
 @sbb_b.ar_cmd(pattern="حلويات$")
 async def _(event):
-    "animation command"
     event = await edit_or_reply(event, "candy")
     deq = deque(list("🍦🍧🍩🍪🎂🍰🧁🍫🍬🍭"))
     for _ in range(100):
@@ -184,7 +157,6 @@ async def _(event):
 
 @sbb_b.ar_cmd(pattern="نار$")
 async def _(event):
-    "animation command"
     event = await edit_or_reply(event, "احـراق")
     await event.edit("احـركه")
     await asyncio.sleep(0.3)
@@ -199,21 +171,3 @@ async def _(event):
     await event.edit("- اخر مرة والله ما اعيد")
     await asyncio.sleep(0.3)
     await event.edit("يلاا احـركه حـرك بسـرعه 🔥🔥🔥")
-
-
-@sbb_b.ar_cmd(pattern="شحن$")
-async def _(event):
-    event = await edit_or_reply(event, "charging")
-    txt = "`Tesla Wireless Charging (beta) Started...\
-            \nDevice Detected: Nokia 1100\nBattery Percentage:` "
-    k = 10
-    for _ in range(10):
-        await event.edit(txt + str(k))
-        k += 10
-        await asyncio.sleep(1)
-    await event.edit(
-        "`Tesla Wireless Charging (beta) Completed...\
-        \nDevice Detected: Nokia 1100 (Space Grey Varient)\
-        \nnBattery Percentage:` [100%](https://telegra.ph/file/a45aa7450c8eefed599d9.mp4) ",
-        link_preview=True,
-    )
