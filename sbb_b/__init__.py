@@ -13,7 +13,7 @@ from .sql_helper.globals import addgvar, delgvar, gvarstatus
 __version__ = "3.0.6"
 __license__ = "رخصة جنو أفيرو العمومية v3.0"
 __author__ = "sbb_b "
-__copyright__ = f"حقوق جمثون (C) 2020 - 2021  {__author__}"
+__copyright__ = f"حقوق جمثون (C) 2020 - 2022  {__author__}"
 
 sbb_b.version = __version__
 sbb_b.tgbot.version = __version__
