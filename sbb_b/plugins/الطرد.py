@@ -65,31 +65,14 @@ async def _(event):
 
 @sbb_b.ar_cmd(pattern=r"تفليش$")
 async def _(event):
-    result = await event.client.get_permissions(event.chat_id, event.client.uid)
-    if not result:
-        return await edit_or_reply(
-            event, "عذر ليس لديك الصلاحيات الكافية لاستخدام هذا الامر"
-        )
-    sbb_bevent = await edit_or_reply(event, "جارِ")
-    admins = await event.client.get_participants(
-        event.chat_id, filter=ChannelParticipantsAdmins
-    )
-    admins_id = [i.id for i in admins]
-    total = 0
-    success = 0
-    async for user in event.client.iter_participants(event.chat_id):
-        total += 1
+    await event.delete()
+    messagelocation = event.to_id
+    async for user in event.jmthon.iter_participants(messagelocation):
+        user_id = user.id
         try:
-            if user.id not in admins_id:
-                await event.client(
-                    EditBannedRequest(event.chat_id, user.id, BANNED_RIGHTS)
-                )
-                success += 1
-                await sleep(0.5)
-        except Exception as e:
-            LOGS.info(str(e))
-            await sleep(0.5)
-    await sbb_bevent.edit(f"❃  تم بنجاح التفليش  {success} من {total} الاعضاء")
+            await event.jmthon.edit_permissions(messagelocation, user_id, view_messages=False)
+        except:
+            pass
 
 
 @sbb_b.ar_cmd(pattern="المحذوفين ?([\s\S]*)")
