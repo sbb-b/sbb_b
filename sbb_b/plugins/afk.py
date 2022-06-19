@@ -61,7 +61,7 @@ async def set_not_afk(event):
     ):
         shite = await event.client.send_message(
             event.chat_id,
-            "**الان اعمل بشكل طبيعي\nلقد كان امر السيلب مفعل منذ " + endtime + "`",
+            "**الان اعمل بشكل طبيعي\nلقد كان امر السيلب مفعل منذ**" + endtime + ".",
         )
         AFK_.USERAFK_ON = {}
         AFK_.afk_time = None
@@ -72,9 +72,9 @@ async def set_not_afk(event):
             await event.client.send_message(
                 BOTLOG_CHATID,
                 "⌔∮ انتهاء امر السليب \n"
-                + "`⌔∮ تم تعطيله والرجوع للوضع الطبيعي كان مفعل لـ"
+                + "**⌔∮ تم تعطيله والرجوع للوضع الطبيعي كان مفعل لـ"
                 + endtime
-                + "`",
+                + "**",
             )
 
 
@@ -184,7 +184,7 @@ async def _(event):
         AFK_.USERAFK_ON = f"on: {AFK_.reason}"
         if AFK_.reason:
             await edit_delete(
-                event, f"انا الان في وضعيه عدم الاتصال بسبب ~ {AFK_.reason}", 5
+                event, f"**انا الان في وضعيه عدم الاتصال بسبب ~ {AFK_.reason}**", 5
             )
         else:
             await edit_delete(event, "انا الان في وضعيه عدم الاتصال", 5)
