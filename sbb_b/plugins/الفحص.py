@@ -73,3 +73,18 @@ temp = """{ALIVE_TEXT}
 **{EMOJI} الوقت:** `{uptime}` 
 **{EMOJI} أصدار البـايثون :** `{pyver}`
 **{EMOJI} المسـتخدم:** {mention}"""
+
+
+
+from sbb_b import sbb_b
+from telethon import events
+from telethon import version
+from platform import python_version
+
+@sbb_b.ar_cmd(pattern="جمثون$")
+async def _(event):
+    await event.delete()
+    jmthonget = await event.get_sender()
+    hnarsl = event.to_id
+    jmthon_pic = "https://telegra.ph/file/7bac18f40e26d091b6720.jpg"
+    await sbb_b.send_file(hnarsl, jmthon_pic, caption=f"اهلا بك {jmthonget.first_name}\n\n اصدار جمثون: 5.0.0\n اصدار البايثون: {python_version()}\n اصدار التيليثون: {version.__version__}\n\nشكرا لك\nجمثون™")
