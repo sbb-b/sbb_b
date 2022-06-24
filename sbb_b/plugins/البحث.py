@@ -1,3 +1,4 @@
+import asyncio
 import base64
 import io
 import os
@@ -5,32 +6,32 @@ from pathlib import Path
 
 from ShazamAPI import Shazam
 from telethon import types
+from telethon.errors.rpcerrorlist import YouBlockedUserError
+from telethon.tl.functions.contacts import UnblockRequest as unblock
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 from validators.url import url
 
-from sbb_b import sbb_b
-
 from ..core.logger import logging
 from ..core.managers import edit_delete, edit_or_reply
-from ..helpers.functions import name_dl, song_dl, yt_data, yt_search
+from ..helpers.functions import delete_conv, name_dl, song_dl, video_dl, yt_search
 from ..helpers.tools import media_type
 from ..helpers.utils import _sbb_butils, reply_id
+from . import sbb_b
 
 LOGS = logging.getLogger(__name__)
 
 # =========================================================== #
 #                           STRINGS                           #
 # =========================================================== #
-SONG_SEARCH_STRING = "<code>يجؤة الانتظار قليلا يتم البحث على المطلوب</code>"
-SONG_NOT_FOUND = "<code>Sorry عذرا لا يمكنني ايجاد اي اغنيه مثل هذه</code>"
-SONG_SENDING_STRING = "<code>جاري الارسال انتظر قليلا...</code>"
-SONGBOT_BLOCKED_STRING = "<code>الرجاء الغاء حظر @songdl_bot و حاول مجددا</code>"
+SONG_SEARCH_STRING = "<code>wi8..! I am finding your song....</code>"
+SONG_NOT_FOUND = "<code>Sorry !I am unable to find any song like that</code>"
+SONG_SENDING_STRING = "<code>yeah..! i found something wi8..🥰...</code>"
 # =========================================================== #
 #                                                             #
 # =========================================================== #
 
 
-@sbb_b.ar_cmd(pattern="اغنية(320)?(?:\s|$)([\s\S]*)")
+@sbb_b.ar_cmd(pattern="بحث(320)?(?:\s|$)([\s\S]*)")
 async def _(event):
     reply_to_id = await reply_id(event)
     reply = await event.get_reply_message()
@@ -39,77 +40,68 @@ async def _(event):
     elif reply and reply.message:
         query = reply.message
     else:
-        return await edit_or_reply(event, "⌔∮ يرجى الرد على ما تريد البحث عنه")
-    sbb_b = base64.b64decode("VHdIUHd6RlpkYkNJR1duTg==")
-    sbb_bevent = await edit_or_reply(event, "⌔∮ جاري البحث عن المطلوب انتظر")
+        return await edit_or_reply(event, "**يجب عليك اضافة اسم المقطع الصوتي التي تريد تنزيله للامـر ، `بحث4 + العنوان**")
+    cat = base64.b64decode("VHdIUHd6RlpkYkNJR1duTg==")
+    sbb_bevent = await edit_or_reply(event, "**⌔∮ جـارِ البحث يرجى الانتظار .  .  .**")
     video_link = await yt_search(str(query))
     if not url(video_link):
         return await sbb_bevent.edit(
-            f"⌔∮ عذرا لم استطع ايجاد مقاطع ذات صلة بـ `{query}`"
+            f"**عـذراً لـم استطـع ايجـاد** {query}"
         )
     cmd = event.pattern_match.group(1)
     q = "320k" if cmd == "320" else "128k"
     song_cmd = song_dl.format(QUALITY=q, video_link=video_link)
-    # thumb_cmd = thumb_dl.format(video_link=video_link)
     name_cmd = name_dl.format(video_link=video_link)
     try:
-        sbb_b = Get(sbb_b)
-        await event.client(sbb_b)
+        cat = Get(cat)
+        await event.client(cat)
     except BaseException:
         pass
-    stderr = (await _sbb_butils.runcmd(song_cmd))[1]
-    if stderr:
-        return await sbb_bevent.edit(f"**خطأ :** `{stderr}`")
-    sbb_bname, stderr = (await _sbb_butils.runcmd(name_cmd))[:2]
-    if stderr:
-        return await sbb_bevent.edit(f"**خطأ :** `{stderr}`")
-    # stderr = (await runcmd(thumb_cmd))[1]
-    sbb_bname = os.path.splitext(sbb_bname)[0]
-    # if stderr:
-    #    return await sbb_bevent.edit(f"**Error :** `{stderr}`")
-    song_file = Path(f"{sbb_bname}.mp3")
+    try:
+        stderr = (await _sbb_butils.runcmd(song_cmd))[1]
+        # if stderr:
+        catname, stderr = (await _sbb_butils.runcmd(name_cmd))[:2]
+        if stderr:
+            return await sbb_bevent.edit(f"**خطــأ :** `{stderr}`")
+        catname = os.path.splitext(catname)[0]
+        song_file = Path(f"{catname}.mp3")
+    except:
+        pass
     if not os.path.exists(song_file):
         return await sbb_bevent.edit(
-            f"⌔∮ عذرا لم استطع ايجاد مقاطع ذات صله بـ `{query}`"
+            f"**عـذراً .. لـم استطـع ايجـاد** {query}"
         )
-    await sbb_bevent.edit("**⌔∮ جاري الارسال انتظر قليلا**")
-    sbb_bthumb = Path(f"{sbb_bname}.jpg")
-    if not os.path.exists(sbb_bthumb):
-        sbb_bthumb = Path(f"{sbb_bname}.webp")
-    elif not os.path.exists(sbb_bthumb):
-        sbb_bthumb = None
-    ytdata = await yt_data(video_link)
+    await sbb_bevent.edit("**⌔∮ جـارِ تحميـل المقـطع الصوتي انتظـر قليلا**")
+    catthumb = Path(f"{catname}.jpg")
+    if not os.path.exists(catthumb):
+        catthumb = Path(f"{catname}.webp")
+    elif not os.path.exists(catthumb):
+        catthumb = None
+    title = catname.replace("./temp/", "").replace("_", "|")
     await event.client.send_file(
         event.chat_id,
         song_file,
         force_document=False,
-        caption=f"**العنوان:** `{ytdata['title']}`",
-        thumb=sbb_bthumb,
+        caption=f"**البحـث :** `{title}`",
+        thumb=catthumb,
         supports_streaming=True,
         reply_to=reply_to_id,
     )
     await sbb_bevent.delete()
-    for files in (sbb_bthumb, song_file):
+    for files in (catthumb, song_file):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-async def delete_messages(event, chat, from_message):
-    itermsg = event.client.iter_messages(chat, min_id=from_message.id)
-    msgs = [from_message.id]
-    async for i in itermsg:
-        msgs.append(i.id)
-    await event.client.delete_messages(chat, msgs)
-    await event.client.send_read_acknowledge(chat)
-
-
-@sbb_b.ar_cmd(pattern="اسم الاغنية$")
+@sbb_b.ar_cmd(pattern="اسم المقطع$")
 async def shazamcmd(event):
     reply = await event.get_reply_message()
     mediatype = media_type(reply)
     if not reply or not mediatype or mediatype not in ["Voice", "Audio"]:
-        return await edit_delete(event, "⌔∮ يرجى الرد على مقطع صوتي او بصمه للبحث عنها")
-    sbb_bevent = await edit_or_reply(event, "**⌔∮ يتم معالجه المقطع الصوتي  .**")
+        return await edit_delete(
+            event, "**- يجب عليك الرد على مقطع صوتي او فيديو لمعرفه العنوان"
+        )
+    sbb_bevent = await edit_or_reply(event, "**- يتم حفظ المقطع الصوتي لمعرفة عنوانه**")
     try:
         for attr in getattr(reply.document, "attributes", []):
             if isinstance(attr, types.DocumentAttributeFilename):
@@ -127,12 +119,12 @@ async def shazamcmd(event):
     except Exception as e:
         LOGS.error(e)
         return await edit_delete(
-            sbb_bevent, f"**⌔∮ لقد حدث خطأ ما اثناء البحث عن اسم الاغنيه:**\n__{e}__"
+            sbb_bevent, f"**حدث خطأ اثناء البحث عن الاسم:**\n__{e}__"
         )
 
     image = track["images"]["background"]
     song = track["share"]["subject"]
     await event.client.send_file(
-        event.chat_id, image, caption=f"**الأغنيه:** `{song}`", reply_to=reply
+        event.chat_id, image, caption=f"**المقطع الصوتي:** `{song}`", reply_to=reply
     )
     await sbb_bevent.delete()
