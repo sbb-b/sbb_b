@@ -14,7 +14,8 @@ from . import BOTLOG, BOTLOG_CHATID
 
 LOGS = logging.getLogger(__name__)
 
-
+$
+#
 class AFK:
     def __init__(self):
         self.USERAFK_ON = {}
