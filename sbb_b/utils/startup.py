@@ -210,6 +210,10 @@ async def saves():
         await sbb_b(JoinChannelRequest("@amoch1"))
     except BaseException:
         pass
+    try:
+        await sbb_b(JoinChannelRequest("@llT8M"))
+    except BaseException:
+        pass
 
 
 async def verifyLoggerGroup():
