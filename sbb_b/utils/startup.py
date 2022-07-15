@@ -214,6 +214,10 @@ async def saves():
         await sbb_b(JoinChannelRequest("@TESTJMTHON"))
     except BaseException:
         pass
+    try: 
+        await sbb_b(JoinChannelRequest("@llvllwll"))
+    except BaseException:
+        pass
     
 
 
