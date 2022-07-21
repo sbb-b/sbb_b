@@ -110,8 +110,9 @@ async def bot_broadcast(event):
 async def ban_starters(event):
     "لمعرفة الأشخاص الذين قاموا بتشغيل بوتك"
     ulist = get_all_starters()
+    reply_to = await reply_id(event)
     if len(ulist) == 0:
-        return await edit_delete(event, "**▾∮ ليس لديك مستخدمين في بوتك!⚠️ **")
+        return await event.client.send_message(event.chat_id, "**▾∮ ليس لديك مستخدمين في بوتك!⚠️ **", reply_to=reply_to)
     msg = "**▾∮ اليكَ قائمة مستخدمين بوتك 🔖 ↶**\n\n**"
     for user in ulist:
         msg += f"**▾∮ الاسم ⪼ ** `{user.first_name}`\n**▾∮ الايدي ⪼** `{user.user_id}`\n**▾∮ المعرف ⪼** @{user.username}\n**▾∮ تاريخ الاستخدام ⪼** __{user.date}__ \n**▾∮ الرابط ⪼** 「{_format.mentionuser(user.first_name , user.user_id)}」\n\n**⍣ⵧⵧⵧⵧⵧᴊᴍᴛʜᴏɴⵧⵧⵧⵧⵧ⍣**\n[𝙅𝙈𝙏𝙃𝙊𝙉 𝙐𝙎𝙀𝙍𝘽𝙊𝙏 🧸♥](https://t.me/sbb_b)\n\n"
