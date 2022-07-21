@@ -137,6 +137,7 @@ async def spammer(event):
     input_str = "".join(event.text.split(maxsplit=1)[1:]).split(" ", 2)
     try:
         sleeptimet = sleeptimem = float(input_str[0])
+        sleeptimet = sleeptimet * 60 #الوقت بالثواني مضروب ب 60 ثانيه حتى يصير بالدقائق
     except Exception:
         return await edit_delete(
             event, "⌔∮ يجب استخدام كتابة صحيحة الرجاء التاكد من الامر اولا ⚠️"
