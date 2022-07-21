@@ -4,7 +4,7 @@ import re
 
 from telethon.events import CallbackQuery
 
-from sbb_b import sbb_bsbb_b
+from sbb_b import sbb_b
 
 
 @sbb_b.tgbot.on(CallbackQuery(data=re.compile(b"troll_(.*)")))
