@@ -3,6 +3,7 @@ from datetime import datetime
 
 import re
 from telethon.tl.types import Channel, PollAnswer
+from emoji import get_emoji_regexp
 
 JMTHON_PATTERN = re.compile(
     "["
