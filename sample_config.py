@@ -74,6 +74,9 @@ class Config(object):
     UB_BLACK_LIST_CHAT = {
         int(x) for x in os.environ.get("UB_BLACK_LIST_CHAT", "").split()
     }
+    VCMODE = os.environ.get("VCMODE", False)
+    VCMODE = bool(VCMODE and (VCMODE.lower() != "false"))
+    VC_SESSION = os.environ.get("VC_SESSION", None)
     TAG_LOGGER = int(os.environ.get("TAG_LOGGER") or 0)
     P_PIC = os.environ.get("P_PIC", None)
     P_TEXT = os.environ.get("P_TEXT", None)
