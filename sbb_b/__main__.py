@@ -1,3 +1,4 @@
+import contextlib
 import sys
 
 import sbb_b
@@ -75,7 +76,7 @@ sbb_b.loop.run_until_complete(startup_process())
 if len(sys.argv) not in (1, 3, 4):
     sbb_b.disconnect()
 else:
-    try:
+    with contextlib.suppress(ConnectionError):
         sbb_b.run_until_disconnected()
-    except ConnectionError:
-        pass
+else:
+    sbb_b.disconnect()
