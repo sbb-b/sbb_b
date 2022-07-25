@@ -98,7 +98,7 @@ async def bot_broadcast(event):
     await br_cast.edit(b_info, parse_mode="html")
 
 
-@sbb_b.on_cmd(
+@sbb_b.bot_cmd(
     pattern=f"^المستخدمين$",
     command=("المستخدمين", plugin_category),
     info={
@@ -200,7 +200,7 @@ async def ban_starters(event):
     await edit_or_reply(event, msg)
 
 
-@sbb_b.on_cmd(
+@sbb_b.bot_cmd(
     pattern=f"^التكرار (تفعيل|تعطيل)$",
     command=("التكرار", plugin_category),
     info={
