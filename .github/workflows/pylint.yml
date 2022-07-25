@@ -42,7 +42,7 @@ jobs:
 
         with:
 
-          commit_message: 'jmthon fixed'
+          commit_message: 'jmthon fixed *'
 
           commit_options: '--no-verify'
 
